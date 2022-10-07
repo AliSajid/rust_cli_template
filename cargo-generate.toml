@@ -1,0 +1,46 @@
+[placeholders.gh_user]
+type = "string"
+prompt = "What is your Github Username?"
+default = "AliSajid"
+
+[placeholders.include_security_email]
+type = "bool"
+prompt = "Do you want to include a security email?"
+default = false
+
+[placeholders.include_license]
+type = "bool"
+prompt = "Do you want to include a license?"
+default = false
+
+[placeholders.project-description]
+type = "string"
+prompt = "What is your project description?"
+default = "A new project"
+
+[conditional.'! placeholders.include_license']
+ignore = ["LICENSE-APACHE", "LICENSE-MIT", "LICENSE-GPL-v3.0", "meta/LICENSE-HEADER"]
+
+
+
+[conditional.'placeholders.include_security_email'.placeholders.security_email]
+type = "string"
+prompt = "What is your security email?"
+
+[conditional.'placeholders.include_license'.placeholders.license]
+type = "string"
+prompt = "What is your license?"
+choices = ["MIT", "Apache-2.0", "GPL-3.0", "Dual MIT/Apache-2.0"]
+default = "Dual MIT/Apache-2.0"
+
+[conditional.'license == "MIT"']
+ignore = ["LICENSE_APACHE", "LICENSE_GPL-v3.0"]
+
+[conditional.'license == "Apache-2.0"']
+ignore = ["LICENSE_MIT", "LICENSE_GPL-v3.0"]
+
+[conditional.'license == "GPL-3.0"']
+ignore = ["LICENSE_MIT", "LICENSE_APACHE"]
+
+[conditional.'license == "Dual MIT/Apache-2.0"']
+ignore = ["LICENSE_GPL-v3.0"]

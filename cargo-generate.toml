@@ -18,6 +18,10 @@ type = "string"
 prompt = "What is your project description?"
 default = "A new project"
 
+[placeholders.dynamic_badge_gist]
+type = "string"
+prompt = "What is your Gist ID for the dynamic badge workflow?"
+
 [conditional.'! placeholders.include_license']
 ignore = ["LICENSE-APACHE", "LICENSE-MIT", "LICENSE-GPL-v3.0", "meta/LICENSE-HEADER"]
 

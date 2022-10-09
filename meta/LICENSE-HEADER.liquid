@@ -1,17 +1,17 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * Copyright (c) 2022 {{ author-name }}
 *
-{{ if license == "Dual MIT/Apache-2.0" }}
+{%- if license == "Dual MIT/Apache-2.0" -%}
 * This project is dual-licensed under the MIT and Apache licenses.
-{{ else if license == "Apache-2.0" }}
+{%- elsif license == "Apache-2.0" -%}
 * This project is licensed under the Apache License, Version 2.0 <LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0>
-{{ else if license == "MIT" }}
+{%- elsif license == "MIT" -%}
 * This project is licensed under the MIT License <LICENSE-MIT or http://opensource.org/licenses/MIT>
-{{ else if license == "GPL-3.0" }}
+{%- elsif license == "GPL-3.0" -%}
 * This project is licensed under the GNU General Public License, Version 3.0 <LICENSE-GPL-v3.0 or http://opensource.org/licenses/GPL-3.0>
-{{ endif }}
+{%- endif -%}
 *
-{{ if license == "Dual MIT/Apache-2.0" or license == "Apache-2.0" }}
+{%- if license == "Dual MIT/Apache-2.0" or license == "Apache-2.0" -%}
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ** APACHE 2.0 LICENSE
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -29,8 +29,8 @@
 * limitations under the License.
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-{{ endif }}
-{{ if license == "Dual MIT/Apache-2.0" or license == "MIT" }}
+{%- endif -%}
+{%- if license == "Dual MIT/Apache-2.0" or license == "MIT" -%}
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ** MIT LICENSE
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -53,13 +53,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-{{ endif }}
-
-{{ if license == "GPL-3.0" }}
+{%- endif -%}
+{%- if license == "GPL-3.0" -%}
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ** GPL-3.0 LICENSE
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* {{project-name}} - {{project-description}}
+* {{project-name}} - {{project-description | title_case}}
 * Copyright (C) 2022  {{author-name}}
 *
 * This program is free software: you can redistribute it and/or modify
@@ -75,4 +74,4 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-{{ endif }}
+{%- endif -%}

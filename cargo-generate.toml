@@ -1,3 +1,6 @@
+[template]
+ignore = "target/"
+
 [placeholders.gh_user]
 type = "string"
 prompt = "What is your Github Username?"
@@ -22,29 +25,27 @@ default = "A new project"
 type = "string"
 prompt = "What is your Gist ID for the dynamic badge workflow?"
 
-[conditional.'! placeholders.include_license']
+[conditional.'!include_license']
 ignore = ["LICENSE-APACHE", "LICENSE-MIT", "LICENSE-GPL-v3.0", "meta/LICENSE-HEADER"]
 
-
-
-[conditional.'placeholders.include_security_email'.placeholders.security_email]
+[conditional.'include_security_email'.placeholders.security_email]
 type = "string"
 prompt = "What is your security email?"
 
-[conditional.'placeholders.include_license'.placeholders.license]
+[conditional.'include_license'.placeholders.license]
 type = "string"
 prompt = "What is your license?"
 choices = ["MIT", "Apache-2.0", "GPL-3.0", "Dual MIT/Apache-2.0"]
 default = "Dual MIT/Apache-2.0"
 
 [conditional.'license == "MIT"']
-ignore = ["LICENSE_APACHE", "LICENSE_GPL-v3.0"]
+ignore = ["LICENSE-APACHE", "LICENSE-GPL-v3.0"]
 
 [conditional.'license == "Apache-2.0"']
-ignore = ["LICENSE_MIT", "LICENSE_GPL-v3.0"]
+ignore = ["LICENSE-MIT", "LICENSE-GPL-v3.0"]
 
 [conditional.'license == "GPL-3.0"']
-ignore = ["LICENSE_MIT", "LICENSE_APACHE"]
+ignore = ["LICENSE-MIT", "LICENSE-APACHE"]
 
 [conditional.'license == "Dual MIT/Apache-2.0"']
-ignore = ["LICENSE_GPL-v3.0"]
+ignore = ["LICENSE-GPL-v3.0"]

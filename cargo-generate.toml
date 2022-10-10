@@ -1,5 +1,5 @@
 [template]
-ignore = "target/"
+ignore = ["target"]
 
 [placeholders.gh_user]
 type = "string"

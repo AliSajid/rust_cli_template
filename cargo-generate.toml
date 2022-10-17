@@ -1,5 +1,6 @@
 [template]
 ignore = ["target"]
+#include = [".github/workflows/*.yaml"]
 
 [placeholders.gh_user]
 type = "string"
@@ -21,7 +22,7 @@ type = "string"
 prompt = "What is your project description?"
 default = "A new project"
 
-[placeholders.dynamic_badge_gist]
+[placeholders.dynamic-badge-gist]
 type = "string"
 prompt = "What is your Gist ID for the dynamic badge workflow?"
 

@@ -17,7 +17,7 @@ concurrency:
   group: CI
 
 env:
-  GIST_KEY: "{{dynamic_badge_gist}}" # pragma: allowlist secret
+  GIST_KEY: {{ dynamic_badge_gist }} # pragma: allowlist secret
   RUST_BACKTRACE: 1
 
 jobs:

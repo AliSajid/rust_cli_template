@@ -20,3 +20,4 @@ jobs:
               uses: actions-rs/audit-check@v1
               with:
                   token: ${{ secrets.ACTIONS_PAT_GITHUB }}
+                  new: {{ dynamic-badge-gist }}

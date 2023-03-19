@@ -85,10 +85,10 @@ jobs:
           args: -- -D warnings
 
       - name: Wait before badge creation
-      uses: AliSajid/random-wait-action@v1.1.0
-      with:
-        minimum: ${{ env.MINIMUM_WAIT }}
-        maximum: ${{ env.MAXIMUM_WAIT }}
+        uses: AliSajid/random-wait-action@v1.1.0
+        with:
+          minimum: ${{ env.MINIMUM_WAIT }}
+          maximum: ${{ env.MAXIMUM_WAIT }}
 
       - name: Create Awesome Badge - Success
         uses: schneegans/dynamic-badges-action@5d424ad4060f866e4d1dab8f8da0456e6b1c4f56 # v1.6.0
@@ -180,10 +180,10 @@ jobs:
           args: -- -D warnings
 
       - name: Wait before badge creation
-      uses: AliSajid/random-wait-action@v1.1.0
-      with:
-        minimum: ${{ env.MINIMUM_WAIT }}
-        maximum: ${{ env.MAXIMUM_WAIT }}
+        uses: AliSajid/random-wait-action@v1.1.0
+        with:
+          minimum: ${{ env.MINIMUM_WAIT }}
+          maximum: ${{ env.MAXIMUM_WAIT }}
 
       - name: Create Awesome Badge - Success
         uses: schneegans/dynamic-badges-action@5d424ad4060f866e4d1dab8f8da0456e6b1c4f56 # v1.6.0
@@ -307,9 +307,9 @@ jobs:
         run: echo "result=${{ job.status }}" >> $GITHUB_OUTPUT
 
   semantic-release:
-  needs: [macos-ci, windows-ci, ubuntu-ci]
-  uses: ./.github/workflows/release.yaml
-  secrets: inherit # pragma: allowlist secret
+    needs: [macos-ci, windows-ci, ubuntu-ci]
+    uses: ./.github/workflows/release.yaml
+    secrets: inherit # pragma: allowlist secret
 
   upload-release-artifacts:
     needs: [semantic-release]

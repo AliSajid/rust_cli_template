@@ -286,3 +286,5 @@ jobs:
     with:
       new_version: ${{ "needs.semantic-release.outputs.new_version" | prepend: "{{" | append: "}}" }}
       new_release_published: ${{ "needs.semantic-release.outputs.new_release_published" | prepend: "{{" | append: "}}" }}
+      new_release_notes: ${{ "needs.semantic-release.outputs.new_release_notes" | prepend: "{{" | append: "}}" }}
+      new_release_channel: ${{ "needs.semantic-release.outputs.new_release_channel" | prepend: "{{" | append: "}}" }}

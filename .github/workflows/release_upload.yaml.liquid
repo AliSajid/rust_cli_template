@@ -9,6 +9,14 @@ on:
         description: 'Whether a new release was published'
         required: true
         type: string
+      new_release_notes:
+        description: 'The release notes'
+        required: true
+        type: string
+      new_release_channel:
+        description: 'The release channel'
+        required: true
+        type: string
 
 name: Upload Release Artifacts
 
@@ -50,22 +58,25 @@ jobs:
             uses: rust-build/rust-build.action@7d5b0c135ddb825f7692d4d2d75e598184d15cec # v1.4.3
             id: release
             env:
-              GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT_GITHUB }}
+              GITHUB_TOKEN: ${{ "secrets.ACTIONS_PAT_GITHUB" |  prepend: "{{" | append: "}}" }}
             with:
               MINIFY: true
-              RUSTTARGET: ${{ matrix.target }}
-              ARCHIVE_TYPES: ${{ matrix.archive }}
+              RUSTTARGET: ${{ "matrix.target" |  prepend: "{{" | append: "}}" }}
+              ARCHIVE_TYPES: ${{ "matrix.archive" |  prepend: "{{" | append: "}}" }}
               UPLOAD_URL: "none"
-              ARCHIVE_NAME: icd-converter${{ env.RELEASE_VERSION }}${{matrix.platform}}
+              ARCHIVE_NAME: icd-converter${{ "env.RELEASE_VERSION" |  prepend: "{{" | append: "}}" }}${{ "matrix.platform" |  prepend: "{{" | append: "}}" }}
               EXTRA_FILES: "README.md LICENSE-APACHE LICENSE-MIT"
 
           - name: Upload Release Artifacts
-            uses: actions/upload-release-asset@v1
+            uses: softprops/action-gh-release@v1
             id: upload-release-asset
             env:
-              GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT_GITHUB }}
+              GITHUB_TOKEN: ${{ "secrets.ACTIONS_PAT_GITHUB" |  prepend: "{{" | append: "}}" }}
             with:
-              name: icd-converter${{ env.RELEASE_VERSION }}${{matrix.platform}}
-              path: |
-                ${{ steps.release.outputs.BUILT_ARCHIVE }}
-                ${{ steps.release.outputs.BUILT_CHECKSUM }}
+              name: {{project-name|snake_case}}-${{ "env.RELEASE_VERSION" |  prepend: "{{" | append: "}}" }}${{ "matrix.platform" |  prepend: "{{" | append: "}}" }}
+              tag_name: v${{ "env.RELEASE_VERSION" |  prepend: "{{" | append: "}}" }}
+              body: ${{ "inputs.new_release_notes" |  prepend: "{{" | append: "}}" }}
+              prerelease: ${{ "inputs.new_release_channel == 'alpha' || inputs.new_release_channel == 'beta'" |  prepend: "{{" | append: "}}" }}
+              files: |
+                ${{ "steps.release.outputs.BUILT_ARCHIVE" |  prepend: "{{" | append: "}}" }}
+                ${{ "steps.release.outputs.BUILT_CHECKSUM" |  prepend: "{{" | append: "}}" }}

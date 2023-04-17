@@ -78,9 +78,11 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 
 <!-- omit in toc -->
 #### How Do I Submit a Good Bug Report?
-{% if include_security_email and security_email != "" %}
-You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to {{security_email}}.
-{% endif %}
+
+You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. 
+{% if include_security_email and security_email != "" -%}
+Instead sensitive bugs must be sent by email to {{security_email}}.
+{% endif -%}
 
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 

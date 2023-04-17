@@ -20,6 +20,14 @@ on:
 
 name: Upload Release Artifacts
 
+{% if license == "Dual MIT/Apache-2.0" -%}
+{% assign license_files = "LICENSE-APACHE LICENSE-MIT" -%}
+{% elsif license == "None" -%}
+{% assign license_files = "" -%}
+{% else -%}
+{% assign license_files = "LICENSE" -%}
+{% endif -%}
+
 env:
   RUST_BACKTRACE: 1
 
@@ -64,8 +72,8 @@ jobs:
               RUSTTARGET: ${{ "matrix.target" |  prepend: "{{" | append: "}}" }}
               ARCHIVE_TYPES: ${{ "matrix.archive" |  prepend: "{{" | append: "}}" }}
               UPLOAD_URL: "none"
-              ARCHIVE_NAME: icd-converter${{ "env.RELEASE_VERSION" |  prepend: "{{" | append: "}}" }}${{ "matrix.platform" |  prepend: "{{" | append: "}}" }}
-              EXTRA_FILES: "README.md LICENSE-APACHE LICENSE-MIT"
+              ARCHIVE_NAME: {{project-name|snake_case}}${{ "env.RELEASE_VERSION" |  prepend: "{{" | append: "}}" }}${{ "matrix.platform" |  prepend: "{{" | append: "}}" }}
+              EXTRA_FILES: "README.md {{license_files}}"
 
           - name: Upload Release Artifacts
             uses: softprops/action-gh-release@v1

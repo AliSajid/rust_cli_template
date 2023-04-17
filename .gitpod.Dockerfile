@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full:2022-10-05-23-28-15
+FROM gitpod/workspace-full:2023-04-14-07-10-23
 
 # Install your tools here
 

@@ -12,4 +12,13 @@ RUN brew install \
     gitleaks \
     markdownlint-cli \
     direnv \
-    commitizen
+    commitizen \
+    kubectl \
+    kubectx \
+    k9s \
+    infracost \
+    tree \
+    yq \
+    yamllint \
+    helm \
+    pre-commit

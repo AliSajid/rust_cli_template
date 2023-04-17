@@ -8,7 +8,6 @@ rust-version = "{{msrv}}"
 repository = "https://github.com/{{gh_user}}/{{project-name}}"
 {% if license == "Dual MIT/Apache-2.0" %}license = "MIT OR Apache-2.0"{% elsif license == "Apache-2.0" %}license = "Apache-2.0"{% elsif license == "MIT" %}license = "MIT"{% elsif license == "GPL-3.0" %}license = "GPL-3.0"{% endif %}
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 name = "{{project-name|snake_case}}_lib"
 path = "src/{{project-name|snake_case}}_lib/lib.rs"

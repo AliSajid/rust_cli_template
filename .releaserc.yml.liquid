@@ -1,0 +1,46 @@
+---
+branches:
+    - v[0-9]+.[0-9]+.[0-9]+
+    - main
+    - name: next
+      prerelease: true
+plugins:
+    - '@semantic-release/commit-analyzer'
+    - - '@semantic-release/changelog'
+      - changelogFile: CHANGELOG.md
+    - - '@semantic-release/release-notes-generator'
+      - preset: conventionalcommits
+    - - '@semantic-release/github'
+      - assets:
+            - path: dist/aarch64-apple-darwin/{{project-name}}-aarch64-apple-darwin
+              label: {{project-name}}-aarch64-apple-darwin
+            - path: dist/aarch64-unknown-linux-gnu/{{project-name}}-aarch64-unknown-linux-gnu
+              label: {{project-name}}-aarch64-unknown-linux-gnu
+            - path: dist/aarch64-unknown-linux-musl/{{project-name}}-aarch64-unknown-linux-musl
+              label: {{project-name}}-aarch64-unknown-linux-musl
+            - path: dist/i686-unknown-linux-gnu/{{project-name}}-i686-unknown-linux-gnu
+              label: {{project-name}}-i686-unknown-linux-gnu
+            - path: dist/i686-unknown-linux-musl/{{project-name}}-i686-unknown-linux-musl
+              label: {{project-name}}-i686-unknown-linux-musl
+            - path: dist/x86_64-apple-darwin/{{project-name}}-x86_64-apple-darwin
+              label: {{project-name}}-x86_64-apple-darwin
+            - path: dist/x86_64-unknown-linux-gnu/{{project-name}}-x86_64-unknown-linux-gnu
+              label: {{project-name}}-x86_64-unknown-linux-gnu
+            - path: dist/x86_64-unknown-linux-musl/{{project-name}}-x86_64-unknown-linux-musl
+              label: {{project-name}}-x86_64-unknown-linux-musl
+            - path: dist/x86_64-pc-windows-gnu/{{project-name}}-x86_64-pc-windows-gnu
+              label: {{project-name}}-x86_64-pc-windows-gnu
+            - path: dist/i686-pc-windows-gnu/{{project-name}}-i686-pc-windows-gnu
+              label: {{project-name}}-i686-pc-windows-gnu
+            - path: dist/SHA256SUMS
+              label: SHA256SUMS
+    - - '@semantic-release/exec'
+      - verifyConditionsCmd: ~/.cargo/bin/semantic-release-cargo -v verify-conditions
+        prepareCmd: ~/.cargo/bin/semantic-release-cargo -v prepare ${nextRelease.version}
+        publishCmd: ~/.cargo/bin/semantic-release-cargo -v publish
+    - - '@semantic-release/git'
+      - assets:
+            - Cargo.toml
+            - Cargo.lock
+            - CHANGELOG.md
+        message: 'chore(release): ${nextRelease.version} [skip ci]'

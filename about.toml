@@ -1,0 +1,22 @@
+# Accepted licesnes by default
+accepted = ["Apache-2.0", "MIT"]
+targets = [
+    "aarch64-apple-darwin",
+    "aarch64-unknown-linux-gnu",
+    "aarch64-unknown-linux-musl",
+    "i686-unknown-linux-gnu",
+    "i686-unknown-linux-musl",
+    "x86_64-apple-darwin",
+    "x86_64-unknown-linux-gnu",
+    "x86_64-unknown-linux-musl",
+    "x86_64-pc-windows-gnu",
+    "i686-pc-windows-gnu",
+]
+
+# Do not ignore any dependencies
+ignore-build-dependencies = false
+ignore-dev-dependencies = false
+ignore-transitive-dependencies = false
+
+# Try to resolve any time clearlydefined.io marks something as NOASSERTION
+filter-noassertion = true

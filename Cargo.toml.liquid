@@ -35,3 +35,20 @@ lto = true # Enable link-time optimization
 codegen-units = 1 # Compile the whole crate at once
 panic = "abort" # Abort on panic
 strip = "symbols" # Strip debug symbols
+
+### Specify / Override the specific lints
+
+[lints.rustdoc]
+broken_intra_doc_links = "deny"
+missing_docs = "forbid"
+invalid_rust_codeblocks = "deny"
+redundant_explicit_links = "deny"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+enum_glob_use = "deny"
+pedantic = "deny"
+nursery = "deny"
+unwrap_used = "deny"

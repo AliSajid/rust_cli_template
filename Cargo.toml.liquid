@@ -18,14 +18,20 @@ name = "{{project-name}}"
 path = "src/{{project-name|snake_case}}/main.rs"
 
 [dependencies]
+clap = { version = "4", features = ["string", "unicode", "derive"] }
+anyhow = { version = "1", features = ["backtrace"] }
+color-eyre = "0.6"
 
+[dev-dependencies]
+rstest = "0.18"
 
 [profile.dev]
 opt-level = 1
 debug = true
 
 [profile.release]
-opt-level = 3
-strip = true
-lto = true
-codegen-units = 1
+opt-level = 'z' # Optimize for size
+lto = true # Enable link-time optimization
+codegen-units = 1 # Compile the whole crate at once
+panic = "abort" # Abort on panic
+strip = "symbols" # Strip debug symbols

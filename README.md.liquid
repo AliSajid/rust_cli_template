@@ -1,23 +1,30 @@
+<!--
+SPDX-FileCopyrightText: 2022 - 2024 Ali Sajid Imami
+
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: MIT
+-->
 
 # {{ project-name | title_case }}
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/{{ gh_user }}/{{ project-name }})
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/{{ gh_user }}/{{ project-name }})
-[![Continuous integration](https://github.com/{{ gh_user }}/{{ project-name }}/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/{{ gh_user }}/{{ project-name }}/actions/workflows/ci.yaml)
-[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/#{{ gh_user }}/{{ project-name }})
+![GitHub Release (w/pre-release)](https://img.shields.io/github/v/release/{{gh_user}}/{{project-name}}?include_prereleases&logo=semantic-release)
+![GitHub Release](https://img.shields.io/github/v/release/{{gh_user}}/{{project-name}}?logo=semantic-release)
+[![Continuous integration](https://github.com/{{gh_user}}/{{project-name}}/actions/workflows/ci.yaml/badge.svg)](https://github.com/{{gh_user}}/{{project-name}}/actions/workflows/ci.yaml)
+[![Security Audit](https://github.com/{{gh_user}}/{{project-name}}/actions/workflows/audit.yaml/badge.svg?branch=main)](https://github.com/{{gh_user}}/{{project-name}}/actions/workflows/audit.yaml)
 
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#{{ gh_user }}/{{ project-name }})
+[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/{{gh_user}}/{{project-name}})
+![GitHub issues](https://img.shields.io/github/issues/{{gh_user}}/{{project-name}})
+![REUSE Compliance](https://img.shields.io/reuse/compliance/github.com%2F{{gh_user}}%2Faaprop)
 
 {{ project-description }}
 
-## Builds
+## Build Status
 
-| Platform | Rust Version |Status |
-| -------- | ------ | ------ |
-| Linux    | stable <br/> beta <br/> nightly <br/> MSRV ({{msrv}}) | ![Ubuntu x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/ubuntu-stable.json) <br/> ![Ubuntu x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/ubuntu-beta.json) <br/> ![Ubuntu x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/ubuntu-nightly.json) <br/> ![Ubuntu x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/ubuntu-msrv.json) |
-| Windows  | stable <br/> beta <br/> nightly <br/> MSRV ({{msrv}}) | ![macos x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/windows-stable.json) <br/> ![macos x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/windows-beta.json) <br/> ![macos x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/windows-nightly.json) <br/> ![macos x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/windows-msrv.json) |
-| macOS    | stable <br/> beta <br/> nightly <br/> MSRV ({{msrv}}) | ![Windows x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/macos-stable.json) <br/> ![Windows x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/macos-beta.json) <br/> ![Windows x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/macos-nightly.json) <br/> ![Windows x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AliSajid/{{ dynamic-badge-gist }}/raw/macos-msrv.json) |
+|         | Stable | Beta | Nightly | MSRV ({{ msrv }}) |
+| ------- | ------ | ---- | ------- | ---- |
+| Linux   | ![Ubuntu x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/ubuntu-stable.json) | ![Ubuntu x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/ubuntu-beta.json) | ![Ubuntu x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/ubuntu-nightly.json) | ![Ubuntu x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/ubuntu-msrv.json) |
+| Windows | ![Windows x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/windows-stable.json) | ![Windows x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/windows-beta.json) | ![Windows x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/windows-nightly.json) | ![Windows x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/windows-msrv.json) |
+| macos   | ![macos x Stable Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/macos-stable.json) | ![macos x Beta Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/macos-beta.json) | ![macos x Nightly Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/macos-nightly.json) | ![macos x MSRV Rust](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/{{gh_user}}/{{ dynamic-badge-gist }}/raw/macos-msrv.json) |
 
 ## Current Status
 

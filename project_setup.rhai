@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2022 - 2024 Ali Sajid Imami
+//
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
+
 // rhai script to deterministically get the information about the project
 
 // Set the project name

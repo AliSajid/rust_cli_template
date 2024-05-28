@@ -1,4 +1,7 @@
 ---
+# SPDX-FileCopyrightText: 2023 - 2024 Ali Sajid Imami
+#
+# SPDX-License-Identifier: CC0-1.0
 repos:
     - repo: local
       hooks:
@@ -44,8 +47,14 @@ repos:
           types_or: [file, rust]
           files: "Cargo.toml$"
           pass_filenames: true
+        - id: vale-lint
+          name: Run Vale linter
+          entry: vale
+          language: system
+          types: [markdown]
+          files: "^(README.md|CONTRIBUTING.md|CODE_OF_CONDUCT.md|guide/src/.*.md)$"
     - repo: https://github.com/commitizen-tools/commitizen
-      rev: v3.13.0
+      rev: v3.15.0
       hooks:
         - id: commitizen
     - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -70,12 +79,13 @@ repos:
           args:
             - --fix=no
         - id: pretty-format-json
-          exclude: ".vscode/launch.json"
+          exclude: ".vscode/.*json"
           args:
             - --indent=4
             - --autofix
             - --no-ensure-ascii
         - id: trailing-whitespace
+          exclude: "licenses_report.md"
           args:
             - --markdown-linebreak-ext=md
     - repo: https://github.com/compilerla/conventional-pre-commit
@@ -98,23 +108,14 @@ repos:
           stages:
             - commit-msg
     - repo: https://github.com/Lucas-C/pre-commit-hooks
-      rev: v1.5.4
+      rev: v1.5.5
       hooks:
         - id: forbid-crlf
         - id: remove-crlf
         - id: forbid-tabs
         - id: remove-tabs
-        - id: insert-license
-          args:
-            - --license-filepath
-            - meta/LICENSE-HEADER
-            - --comment-style
-            - //
-            - --use-current-year
-            - --allow-past-years
-          files: \.rs$
     - repo: https://github.com/google/yamlfmt
-      rev: v0.10.0
+      rev: v0.11.0
       hooks:
         - id: yamlfmt
           exclude: ".github/workflows/.*\\.ya?ml"
@@ -137,9 +138,14 @@ repos:
       rev: 0.6.4
       hooks:
         - id: fix-smartquotes
+          exclude: "licenses_report.json"
         - id: fix-ligatures
         - id: forbid-bidi-controls
     - repo: https://github.com/zricethezav/gitleaks
-      rev: v8.18.1
+      rev: v8.18.2
       hooks:
         - id: gitleaks
+    - repo: https://github.com/fsfe/reuse-tool
+      rev: v3.0.1
+      hooks:
+        - id: reuse

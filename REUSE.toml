@@ -11,7 +11,6 @@ path = [
     ".markdownlintignore",
     ".markdownlint.json",
     ".secrets.baseline",
-    ".gitpod.Dockerfile",
     ".vscode/**.json",
     "meta/vale-styles/config/**/**.txt",
     "CHANGELOG.md",

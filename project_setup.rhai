@@ -17,6 +17,9 @@ variable::set("project-description", project_description);
 let username = variable::prompt("What is your Github username?", "AliSajid");
 variable::set("gh_user", username);
 
+// Generate the GitHub Repository base URL
+variable::set("gh_repo_url", "https://github.com/${gh_user}/${project-name}" )
+
 // Set the project license
 let license = variable::prompt("Select license?", "Dual MIT/Apache-2.0", ["MIT", "Apache-2.0", "GPL-3.0", "Dual MIT/Apache-2.0", "None"]);
 
@@ -25,25 +28,28 @@ switch license {
     file::delete("LICENSE-APACHE");
     file::delete("LICENSE-GPL-3.0-OR-LATER");
     file::rename("LICENSE-MIT", "LICENSE");
+    variable::set("license-acknowledgement", "This project is licensed under [MIT](LICENSE-MIT). When you submit changes, your submissions are understood to be under the same [MIT](LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.")
   }
   "Apache-2.0" => {
     file::delete("LICENSE-MIT");
     file::delete("LICENSE-GPL-3.0-OR-LATER");
     file::rename("LICENSE-APACHE", "LICENSE");
+    variable::set("license-acknowledgement", "This project is licensed under [Apache-2.0](LICENSE-Apache-2.0). When you submit changes, your submissions are understood to be under the same [Apache-2.0](LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.")
   }
   "GPL-3.0" => {
     file::delete("LICENSE-MIT");
     file::delete("LICENSE-APACHE");
     file::rename("LICENSE-GPL-3.0-OR-LATER", "LICENSE");
+    variable::set("license-acknowledgement", "This project is licensed under [GPL-3.0-OR-LATER](LICENSE-GPL-3.0-OR-LATER). When you submit changes, your submissions are understood to be under the same [GPL-3.0-OR-LATER](LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.")
   }
   "Dual MIT/Apache-2.0" => {
     file::delete("LICENSE-GPL-3.0-OR-LATER");
+    variable::set("license-acknowledgement", "This project is dual-licensed under [MIT](LICENSE-MIT) and [Apache 2.0](LICENSE-APACHE). When you submit changes, your submissions are understood to be under the same [MIT](LICENSE-MIT) and [Apache 2.0](LICENSE-APACHE) that covers the project. Feel free to contact the maintainers if that's a concern.")
   }
   "None" => {
     file::delete("LICENSE-MIT");
     file::delete("LICENSE-APACHE");
     file::delete("LICENSE-GPL-3.0-OR-LATER");
-    file::delete("meta/LICENSE-HEADER.liquid");
   }
 }
 variable::set("license", license);

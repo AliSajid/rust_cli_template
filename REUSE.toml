@@ -30,3 +30,9 @@ path = "licenses_report.json"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023 - 2024 Ali Sajid Imami"
 SPDX-License-Identifier = "Apache-2.0 AND MIT"
+
+[[annotations]]
+path = ["guide/book.toml", "guide/src/*.md"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2023 - 2024 Ali Sajid Imami"
+SPDX-License-Identifier = "MIT AND Apache-2.0"

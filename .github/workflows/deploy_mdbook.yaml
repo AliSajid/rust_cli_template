@@ -18,14 +18,47 @@ env:
   GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT_GITHUB }}
   BRANCH: ${{ github.ref_name }}
 
+permissions:
+  contents: read
+
 jobs:
+  build_book:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
+      - name: Checkout the Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Install mdbook
+        uses: taiki-e/install-action@acd25891978b4cdaebd139d3efef606d26513b14 # v2.47.0
+        with:
+          tool: mdbook
+      - name: Build the Book
+        run: mdbook build guide
+      - name: Upload artifact
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        with:
+          name: book
+          path: guide/book
+          retention-days: 1
+          compression-level: 9
   deploy_book:
     runs-on: ubuntu-latest
+    needs: [build_book]
+    env:
+      PROJECT_ENVIRONMENT: ''
+      STORE_PATH: ''
     outputs:
       deployment_url: ${{ steps.output_deployment_url.outputs.deployment_url }}
     steps:
-      - name: Checkout the Repository
-        uses: actions/checkout@v3
+      - name: Harden Runner
+        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        with:
+          egress-policy: audit
+
       - name: Decide Deployment Environment
         id: deployment_environment
         run: |
@@ -34,57 +67,36 @@ jobs:
           else
             echo "PROJECT_ENVIRONMENT=preview" >> $GITHUB_ENV
           fi
+      - name: Download artifact
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: book
+          path: /opt/book
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: '18'
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
         with:
           version: 8
           run_install: false
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@master
-        id: rust-toolchain
-        with:
-          toolchain: stable
-      - name: Cache dependencies
-        uses: Swatinem/rust-cache@6fd3edff6979b79f87531400ad694fb7f2c84b1f # v2.2.1
-      - name: Install cargo-binstall
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-binstall
-      - name: Install dependencies
-        run: cargo binstall --log-level debug --no-confirm --locked mdbook mdbook-plantuml mdbook-inline-highlighting
-      - name: Install dependencies
+      - name: Install pnpm dependencies
         run: pnpm install -g vercel@latest
-      - name: Populate Preview Variables
-        run: vercel pull --yes --environment=${{env.PROJECT_ENVIRONMENT}} --token=${{ env.VERCEL_TOKEN }}
-      - name: Build the Book
-        run: mdbook build guide
+      - name: Populate Vercel Variables
+        run: vercel pull --cwd /opt/book --yes --environment=${{env.PROJECT_ENVIRONMENT}} --token=${{ env.VERCEL_TOKEN }}
       - name: Build for Vercel deployment -- Preview
         if: env.PROJECT_ENVIRONMENT == 'preview'
-        run: vercel build --cwd guide/book -y -d --token=${{ env.VERCEL_TOKEN }}
-      - name: Build for Vercel deployment -- Production
-        if: env.PROJECT_ENVIRONMENT == 'production'
-        run: vercel build --cwd guide/book -y --prod -d --token=${{ env.VERCEL_TOKEN }}
+        run: vercel build --cwd /opt/book -y -d --token=${{ env.VERCEL_TOKEN }}
       - name: Deploy to Vercel -- Preview
         if: env.PROJECT_ENVIRONMENT == 'preview'
-        run: vercel deploy --cwd guide/book --prebuilt --token=${{ env.VERCEL_TOKEN }} > deployment_url
+        run: vercel deploy --cwd /opt/book --prebuilt --token=${{ env.VERCEL_TOKEN }} > deployment_url
+      - name: Build for Vercel deployment -- Production
+        if: env.PROJECT_ENVIRONMENT == 'production'
+        run: vercel build --cwd /opt/book -y --prod -d --token=${{ env.VERCEL_TOKEN }}
       - name: Deploy to Vercel -- Production
         if: env.PROJECT_ENVIRONMENT == 'production'
-        run: vercel deploy --cwd guide/book --prod --prebuilt --token=${{ env.VERCEL_TOKEN }} > deployment_url
+        run: vercel deploy --cwd /opt/book --prod --prebuilt --token=${{ env.VERCEL_TOKEN }} > deployment_url
       - name: Output Deployment URL
         id: output_deployment_url
         run: echo "deployment_url=$(cat deployment_url)" >> $GITHUB_OUTPUT

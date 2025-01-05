@@ -20,12 +20,19 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
         runs-on: ubuntu-latest
         steps:
+            - name: Harden Runner
+              uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+              with:
+                egress-policy: audit
+
             - name: Checkout
-              uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+              uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
             - name: Install Rust
-              uses: dtolnay/rust-toolchain@stable
+              uses: dtolnay/rust-toolchain@a54c7afa936fefeb4456b2dd8068152669aa8203 # stable
+              with:
+                toolchain: stable
             - name: Install cargo-audit
-              uses: taiki-e/install-action@6261d093c5f01aa48722a4640a5b00a02a358aac # v2.33.7
+              uses: taiki-e/install-action@acd25891978b4cdaebd139d3efef606d26513b14 # v2.47.0
               with:
                 tool: cargo-audit
             - name: Security Audit

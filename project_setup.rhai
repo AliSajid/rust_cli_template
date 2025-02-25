@@ -50,6 +50,7 @@ switch license {
     file::delete("LICENSE-MIT");
     file::delete("LICENSE-APACHE");
     file::delete("LICENSE-GPL-3.0-OR-LATER");
+    variable::set("license-acknowledgement", "This project has all rights reserved for the respective author.")
   }
 }
 variable::set("license", license);

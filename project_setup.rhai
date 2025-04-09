@@ -56,7 +56,7 @@ switch license {
 variable::set("license", license);
 
 // Set the project minimum supported rust version (MSRV)
-let msrv = variable::prompt("What is the minimum supported rust version (MSRV)?", "1.64.0");
+let msrv = variable::prompt("What is the minimum supported rust version (MSRV)?", "1.78.1");
 variable::set("msrv", msrv);
 
 // Set the project update gist

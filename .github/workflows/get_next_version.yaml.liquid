@@ -10,7 +10,7 @@ on:
         outputs:
             new-release-published:
                 description: Indicates whether a new release will be published. The value is a string, either 'true' or 'false'.
-                value: ${{ jobs.get-next-version.outputs.new-release-published }}
+                value: ${{" jobs.get-next-version.outputs.new-release-published " | prepend: "{{" | append: "}}"}}
 permissions:
   contents: read
 
@@ -19,7 +19,7 @@ jobs:
         name: Get next release version
         runs-on: ubuntu-latest
         outputs:
-            new-release-published: ${{ steps.get-next-version.outputs.new-release-published }}
+            new-release-published: ${{" steps.get-next-version.outputs.new-release-published " | prepend: "{{" | append: "}}"}}
         steps:
             - name: Harden Runner
               uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
@@ -39,9 +39,9 @@ jobs:
               uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
               id: cache-node-modules
               with:
-                path: ${{ runner.temp }}/.semantic-release-action_next-release-version/node_modules
+                path: ${{" runner.temp " | prepend: "{{" | append: "}}"}}/.semantic-release-action_next-release-version/node_modules
                 key: |
-                    semantic-release-action/next-release-version-${{ runner.os }}-node-${{ hashFiles('${{ github.action_path }}/package-lock.json') }}
+                    semantic-release-action/next-release-version-${{" runner.os " | prepend: "{{" | append: "}}"}}-node-${{" hashFiles('${{ github.action_path " | prepend: "{{" | append: "}}"}}/package-lock.json') }}
             - name: Install dependencies on cache miss
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: |
@@ -50,7 +50,7 @@ jobs:
             - name: Get next release version
               id: get-next-version
               env:
-                GITHUB_TOKEN: ${{secrets.ACTIONS_PAT_GITHUB}}
+                GITHUB_TOKEN: ${{"secrets.ACTIONS_PAT_GITHUB" | prepend: "{{" | append: "}}"}}
               run: |
                 : calculate next semantic-release version
                 semantic-release \
